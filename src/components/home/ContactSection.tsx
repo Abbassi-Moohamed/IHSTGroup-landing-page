@@ -9,7 +9,7 @@ import {
 } from "@/constants/content";
 
 const EarthModel = dynamic(
-  () => import("./contact/EarthModel").then((m) => m.EarthModel),
+  () => import("./contact/mailModel").then((m) => m.EarthModel),
   { ssr: false },
 );
 
