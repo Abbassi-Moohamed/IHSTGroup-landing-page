@@ -19,21 +19,21 @@ const inputClassName =
 export function ContactSection() {
   return (
     <section
-      className="bg-gradient-to-b from-slate-950 via-navy to-slate-950 px-6 py-20 sm:px-10 lg:px-14"
+      className="bg-gradient-to-b from-slate-950 via-navy to-slate-950 px-4 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20"
       id="contact"
     >
-      <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1fr_2fr]">
-        <div className="flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-white/10 p-10 shadow-soft backdrop-blur-lg">
-          <div className="grid gap-4">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_2fr] lg:gap-14">
+        <div className="flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-white/10 p-6 shadow-soft backdrop-blur-lg sm:p-8 lg:p-10">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-4">
             {Object.values(CONTACT_INFO).map((item) => (
               <div
                 key={item.label}
-                className="rounded-3xl bg-navy/90 p-5 text-slate-200 shadow-soft"
+                className="rounded-3xl bg-navy/90 p-4 text-slate-200 shadow-soft sm:p-5"
               >
-                <p className="text-sm uppercase tracking-[0.28em] text-rosewood/80">
+                <p className="text-[10px] uppercase tracking-[0.28em] text-rosewood/80 sm:text-sm">
                   {item.label}
                 </p>
-                <p className="mt-3 text-base">{item.value}</p>
+                <p className="mt-2 text-sm sm:mt-3 sm:text-base">{item.value}</p>
               </div>
             ))}
           </div>
@@ -42,7 +42,7 @@ export function ContactSection() {
 
           <div className="text-center">
             <motion.h2
-              className="text-3xl font-semibold text-white"
+              className="text-2xl font-semibold text-white sm:text-3xl"
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
@@ -53,13 +53,13 @@ export function ContactSection() {
           </div>
         </div>
 
-        <form className="rounded-[2rem] border border-white/10 bg-white/10 p-10 shadow-soft backdrop-blur-lg">
+        <form className="rounded-[2rem] border border-white/10 bg-white/10 p-6 shadow-soft backdrop-blur-lg sm:p-8 lg:p-10">
           <div className="text-start">
-            <p className="text-2xl font-semibold leading-snug text-white">
+            <p className="text-xl font-semibold leading-snug text-white sm:text-2xl">
               {CONTACT_DESCRIPTION}
             </p>
           </div>
-          <div className="mt-8 grid gap-6">
+          <div className="mt-6 grid gap-5 sm:mt-8 sm:gap-6">
             <div>
               <label htmlFor="name" className="text-sm font-medium text-slate-200">
                 Full name

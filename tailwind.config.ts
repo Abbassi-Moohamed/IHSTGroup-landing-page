@@ -6,6 +6,14 @@ const config: Config = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2.5rem",
+        lg: "3.5rem",
+      },
+    },
     extend: {
       boxShadow: {
         glow: "0 30px 120px rgba(86, 105, 255, 0.14)",
@@ -23,25 +31,8 @@ const config: Config = {
         pearl: "#F8F9FA",
         slate: "#CAD4E0",
       },
-      animation: {
-        float: "float 6s ease-in-out infinite",
-        fadeInUp: "fadeInUp 0.8s ease forwards",
-        pulseSlow: "pulse 5s ease-in-out infinite",
-      },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-16px)" },
-        },
-        fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(32px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        pulse: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.78" },
-        },
-      },
+      animation: {},
+      keyframes: {},
     },
   },
   plugins: [],

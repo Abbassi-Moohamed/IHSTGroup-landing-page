@@ -1,9 +1,4 @@
-import type {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  HTMLAttributes,
-} from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 export interface NavItem {
   label: string;

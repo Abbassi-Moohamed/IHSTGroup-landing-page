@@ -49,7 +49,7 @@ export const HERO_FLOAT_CARDS: FloatCard[] = [
     tag: "Key benefit",
     title: "Bespoke pathways for every learner.",
     baseRotate: -3,
-    positionClass: "left-10 top-8 w-44",
+    positionClass: "left-3 top-3 w-36 sm:left-6 sm:top-5 sm:w-40 lg:left-10 lg:top-8 lg:w-44",
     idleOffset: {
       x: [0, 8, -8, 0],
       y: [0, -6, 6, 0],
@@ -61,7 +61,7 @@ export const HERO_FLOAT_CARDS: FloatCard[] = [
     tag: "Live immersion",
     title: "Labs, clubs, and coaching in one elevated experience.",
     baseRotate: 2,
-    positionClass: "right-2 top-36 w-36",
+    positionClass: "right-2 top-20 w-32 sm:right-2 sm:top-28 sm:w-34 lg:right-2 lg:top-36 lg:w-36",
     idleOffset: {
       x: [0, -10, 10, 0],
       y: [0, 7, -7, 0],
@@ -73,7 +73,7 @@ export const HERO_FLOAT_CARDS: FloatCard[] = [
     tag: "Trusted excellence",
     title: "Proven outcomes for ambitious learners.",
     baseRotate: 3,
-    positionClass: "right-6 bottom-10 w-48",
+    positionClass: "right-3 bottom-6 w-36 sm:right-4 sm:bottom-8 sm:w-40 lg:right-6 lg:bottom-10 lg:w-48",
     idleOffset: {
       x: [0, 9, -9, 0],
       y: [0, -8, 8, 0],
@@ -188,11 +188,6 @@ export const CLUBS = [
     accent: "#B4473F",
   },
 ];
-
-export const CONTACT_HEADER_TAG = "Contact IHSTGroup";
-
-export const CONTACT_HEADER_TITLE =
-  "Let's start your premium education journey.";
 
 export const CONTACT_DESCRIPTION =
   "Contact our admissions team for guidance, pathway planning, and campus tours for Cambridge, IB, language, and career programs.";

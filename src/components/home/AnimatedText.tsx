@@ -19,7 +19,7 @@ export function AnimatedText({ text }: AnimatedTextProps) {
           ease: [0.22, 1, 0.36, 1],
           delay: 0.55,
         }}
-        className="hero-copy whitespace-normal text-lg leading-8 text-white sm:text-xl"
+        className="hero-copy whitespace-normal text-base leading-7 text-white sm:text-lg sm:leading-8 lg:text-xl"
       >
         {characters.map((char, index) => (
           <motion.span
@@ -45,7 +45,7 @@ export function AnimatedText({ text }: AnimatedTextProps) {
           delay: 0.75,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="pointer-events-none absolute inset-0 left-0 top-0 whitespace-normal text-lg leading-8 text-burgundy sm:text-xl"
+        className="pointer-events-none absolute inset-0 left-0 top-0 whitespace-normal text-base leading-7 text-burgundy sm:text-lg sm:leading-8 lg:text-xl"
       >
         {characters.map((char, index) => (
           <motion.span

@@ -8,13 +8,13 @@ export function Navigation({
 }: NavigationProps) {
   if (isMobile) {
     return (
-      <div className="space-y-3">
+      <div className="grid grid-cols-2 gap-2">
         {NAV_ITEMS.map((item) => (
           <a
             key={item.target}
             href={`#${item.target}`}
             onClick={() => onNavigate(item.target)}
-            className="block rounded-3xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-slate-200 transition hover:bg-burgundy hover:text-white"
+            className="block rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-slate-200 transition hover:bg-burgundy hover:text-white"
           >
             {item.label}
           </a>

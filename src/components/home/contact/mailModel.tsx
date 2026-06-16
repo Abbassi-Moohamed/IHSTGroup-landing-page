@@ -2,13 +2,11 @@
 
 import { useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Float, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-const MODEL_PATH = "/mail.glb?v=2";
-
 function MailModel() {
-  const { scene } = useGLTF(MODEL_PATH);
+  const { scene } = useGLTF("/mail.glb");
   const meshRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
@@ -19,23 +17,11 @@ function MailModel() {
 
     scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        const name = child.name.toLowerCase();
-        const isCircle = /disc|ring|circle/.test(name);
-        const isInner = /envelope|flap|envelop|inner/.test(name);
-
-        if (isCircle) {
-          child.material = new THREE.MeshStandardMaterial({
-            color: "#1a2f42",
-            metalness: 0.3,
-            roughness: 0.4,
-          });
-        } else if (isInner) {
-          child.material = new THREE.MeshStandardMaterial({
-            color: "#922111",
-            metalness: 0.3,
-            roughness: 0.4,
-          });
-        }
+        child.material = new THREE.MeshStandardMaterial({
+          color: "#b82c18",
+          metalness: 0.3,
+          roughness: 0.4,
+        });
       }
     });
   }, [scene]);
@@ -47,17 +33,15 @@ function MailModel() {
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0} floatIntensity={0.3}>
-      <group ref={meshRef} scale={0.8}>
-        <primitive object={scene} />
-      </group>
-    </Float>
+    <group ref={meshRef} scale={0.8}>
+      <primitive object={scene} />
+    </group>
   );
 }
 
 export function EarthModel() {
   return (
-    <div className="h-80 w-full">
+    <div className="h-56 w-full sm:h-64 lg:h-80">
       <Canvas
         camera={{ position: [0, 0, 4], fov: 40 }}
         dpr={[1, 1.5]}
@@ -67,11 +51,7 @@ export function EarthModel() {
         <directionalLight position={[5, 3, 5]} intensity={1.2} />
         <directionalLight position={[-3, -1, -3]} intensity={0.4} />
         <MailModel />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          rotateSpeed={0.5}
-        />
+        <OrbitControls enableZoom={false} enablePan={false} rotateSpeed={0.5} />
       </Canvas>
     </div>
   );

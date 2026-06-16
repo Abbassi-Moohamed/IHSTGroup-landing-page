@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useRef } from "react";
+import { useMemo, useEffect, useRef, useState } from "react";
 import { motion, animate, useMotionValue, type MotionValue } from "framer-motion";
 import { SECTIONS } from "@/constants/content";
 import { CylinderCard } from "./CylinderCard";
@@ -11,7 +11,6 @@ interface CylinderSceneProps {
   hoveredCard: number | null;
 }
 
-const RADIUS = 280;
 const TOTAL = SECTIONS.length;
 const CARD_SPACING = 50;
 
@@ -22,6 +21,24 @@ export function CylinderScene({
 }: CylinderSceneProps) {
   const effectiveRotation = useMotionValue(0);
   const isAnimating = useRef(false);
+
+  const [dimensions, setDimensions] = useState({ cardWidth: 460, radius: 280, cardHeight: 190 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      const w = window.innerWidth;
+      if (w < 640) {
+        setDimensions({ cardWidth: 270, radius: 180, cardHeight: 150 });
+      } else if (w < 1024) {
+        setDimensions({ cardWidth: 360, radius: 230, cardHeight: 170 });
+      } else {
+        setDimensions({ cardWidth: 460, radius: 280, cardHeight: 190 });
+      }
+    };
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
 
   // Sync with scroll-driven rotation when not hovering
   useEffect(() => {
@@ -65,11 +82,13 @@ export function CylinderScene({
           section={section}
           index={index}
           total={TOTAL}
-          radius={RADIUS}
+          radius={dimensions.radius}
+          cardWidth={dimensions.cardWidth}
+          cardHeight={dimensions.cardHeight}
           isActive={activeCard === index}
         />
       )),
-    [activeCard],
+    [activeCard, dimensions],
   );
 
   return (

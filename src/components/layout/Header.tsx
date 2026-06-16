@@ -17,23 +17,23 @@ export function Header({
 }: HeaderProps) {
   return (
     <div className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-3xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 sm:px-10 lg:px-14">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-10 sm:gap-4 sm:py-4 lg:px-14">
         <a
           href="#hero"
-          className="flex items-center gap-3 transition hover:opacity-90"
+          className="flex items-center gap-2 transition hover:opacity-90 sm:gap-3"
         >
           <Image
             src={BRANDING.logo}
             alt={`${BRANDING.name} logo`}
             width={48}
             height={48}
-            className="h-12 w-12 rounded-3xl bg-white/10 p-2 shadow-soft"
+            className="h-10 w-10 rounded-2xl bg-white/10 p-1.5 shadow-soft sm:h-12 sm:w-12 sm:rounded-3xl sm:p-2"
           />
-          <div className="space-y-1">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">
+          <div className="space-y-0.5 sm:space-y-1">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white sm:text-sm">
               {BRANDING.name}
             </p>
-            <p className="text-[11px] uppercase tracking-[0.35em] text-slate-400">
+            <p className="hidden text-[10px] uppercase tracking-[0.35em] text-slate-400 sm:block sm:text-[11px]">
               {BRANDING.tagline}
             </p>
           </div>
@@ -44,7 +44,7 @@ export function Header({
           onNavigate={onSectionChange}
         />
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle theme={theme} onToggle={onThemeChange} />
 
           <Button
@@ -59,18 +59,29 @@ export function Header({
           <button
             type="button"
             onClick={onMenuToggle}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition hover:border-burgundy hover:text-white sm:hidden"
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition hover:border-burgundy hover:text-white sm:hidden"
             aria-label="Toggle navigation"
             aria-expanded={mobileMenuOpen}
           >
-            <span className="block h-0.5 w-6 bg-current" />
-            <span className="mt-1 block h-0.5 w-6 bg-current" />
+            <span className="absolute block h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-out" style={{
+              transform: mobileMenuOpen ? 'rotate(45deg)' : 'translateY(-3px)',
+            }} />
+            <span className="absolute block h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-out" style={{
+              opacity: mobileMenuOpen ? 0 : 1,
+            }} />
+            <span className="absolute block h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-out" style={{
+              transform: mobileMenuOpen ? 'rotate(-45deg)' : 'translateY(3px)',
+            }} />
           </button>
         </div>
       </div>
 
-      {mobileMenuOpen && (
-        <div className="border-t border-white/10 bg-slate-950/95 px-6 py-4 sm:hidden">
+      <div
+        className={`overflow-hidden border-t border-white/10 bg-slate-950/95 transition-all duration-300 ease-out sm:hidden ${
+          mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="px-4 py-4">
           <Navigation
             activeSection={activeSection}
             isMobile
@@ -80,7 +91,7 @@ export function Header({
             }}
           />
         </div>
-      )}
+      </div>
     </div>
   );
 }

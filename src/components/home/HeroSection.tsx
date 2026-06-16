@@ -56,7 +56,7 @@ const hubStatCards: HubStatCardConfig[] = [
     stat: HERO_CARD_STATS[0].stat,
     label: HERO_CARD_STATS[0].label,
     baseRotate: -1,
-    positionClass: "left-[4.5rem] bottom-[5.75rem] w-36",
+    positionClass: "left-[2rem] bottom-[3.5rem] w-28 sm:left-[3.5rem] sm:bottom-[4.5rem] sm:w-32 lg:left-[4.5rem] lg:bottom-[5.75rem] lg:w-36",
     idleOffset: {
       x: [0, 5, -5, 0],
       y: [0, -4, 4, 0],
@@ -68,7 +68,7 @@ const hubStatCards: HubStatCardConfig[] = [
     stat: HERO_CARD_STATS[1].stat,
     label: HERO_CARD_STATS[1].label,
     baseRotate: 1,
-    positionClass: "left-[14.25rem] bottom-[5.75rem] w-36",
+    positionClass: "left-[7.5rem] bottom-[3.5rem] w-28 sm:left-[11rem] sm:bottom-[4.5rem] sm:w-32 lg:left-[14.25rem] lg:bottom-[5.75rem] lg:w-36",
     idleOffset: {
       x: [0, -5, 5, 0],
       y: [0, 4, -4, 0],
@@ -278,7 +278,7 @@ export function HeroSection() {
     <section
       id="hero"
       data-id="hero"
-      className="hero-section relative overflow-hidden px-6 pb-24 pt-10 sm:px-10 lg:px-14"
+      className="hero-section relative overflow-hidden px-4 pb-20 pt-8 sm:px-10 sm:pb-24 sm:pt-10 lg:px-14"
     >
       <div className="absolute inset-0 -z-10 bg-page" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_15%_10%,_rgba(255,255,255,0.16),_transparent_18%)] blur-3xl" />
@@ -294,7 +294,7 @@ export function HeroSection() {
           <Badge variant="primary">{HERO_TAGLINE}</Badge>
         </motion.div>
 
-        <div className="grid gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+        <div className="grid gap-8 lg:gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div className="relative z-10 min-w-0 space-y-8">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -333,14 +333,14 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.9 }}
-              className="grid gap-4 sm:grid-cols-3"
+              className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4"
             >
               {HERO_STATS.map((item) => (
                 <Card key={item.label} variant="stat">
-                  <p className="text-2xl font-semibold text-white">
+                  <p className="text-xl font-semibold text-white sm:text-2xl">
                     {item.value}
                   </p>
-                  <p className="mt-2 text-slate-300">{item.label}</p>
+                  <p className="mt-1 text-xs text-slate-300 sm:mt-2 sm:text-sm">{item.label}</p>
                 </Card>
               ))}
             </motion.div>
@@ -348,7 +348,7 @@ export function HeroSection() {
 
           <motion.div
             ref={heroRef}
-            className="hero-scene relative z-10 aspect-[4/5] min-h-[560px] transform-gpu overflow-visible rounded-[2.5rem] border border-white/10 bg-white/5 p-6 pt-10 shadow-soft backdrop-blur-xl"
+            className="hero-scene relative z-10 aspect-[4/5] min-h-[350px] transform-gpu overflow-visible rounded-[2.5rem] border border-white/10 bg-white/5 p-4 pt-6 shadow-soft backdrop-blur-xl sm:min-h-[450px] sm:p-6 sm:pt-10 lg:min-h-[560px]"
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
@@ -360,7 +360,7 @@ export function HeroSection() {
             <div className="absolute bottom-12 right-8 h-24 w-24 rounded-full bg-burgundy/15 blur-3xl" />
 
             <motion.div
-              className="hero-card relative mx-auto mr-36 mt-28 h-[320px] max-w-[380px] cursor-grab rounded-[2.2rem] border border-white/10 bg-slate-950/85 p-6 pb-8 shadow-[0_35px_80px_rgba(8,20,39,0.35)] backdrop-blur-xl"
+              className="hero-card relative mx-auto mr-4 mt-12 h-[200px] max-w-[260px] cursor-grab rounded-[2.2rem] border border-white/10 bg-slate-950/85 p-5 pb-6 shadow-[0_35px_80px_rgba(8,20,39,0.35)] backdrop-blur-xl sm:mr-16 sm:mt-20 sm:h-[260px] sm:max-w-[320px] sm:p-6 sm:pb-8 lg:mr-36 lg:mt-28 lg:h-[320px] lg:max-w-[380px]"
               drag={activeCard === "hub"}
               dragElastic={0.12}
               dragMomentum={false}
@@ -420,10 +420,10 @@ export function HeroSection() {
                 <p className="text-sm font-semibold uppercase tracking-[0.28em] text-rosewood">
                   {HERO_CARD_TAG}
                 </p>
-                <h3 className="mt-4 text-3xl font-semibold text-white">
+                <h3 className="mt-2 text-xl font-semibold text-white sm:mt-3 sm:text-2xl lg:mt-4 lg:text-3xl">
                   {HERO_CARD_TITLE}
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-slate-300">
+                <p className="mt-2 text-xs leading-6 text-slate-300 sm:mt-3 sm:text-sm sm:leading-7 lg:mt-4">
                   {HERO_CARD_DESCRIPTION}
                 </p>
               </div>

@@ -12,8 +12,7 @@ import { PathwaysSection } from "./PathwaysSection";
 export function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { activeSection, setActiveSection, revealedSections } =
-    useSectionObserver();
+  const { activeSection, setActiveSection } = useSectionObserver();
 
   return (
     <main className="min-h-screen overflow-x-clip bg-page text-primary">
