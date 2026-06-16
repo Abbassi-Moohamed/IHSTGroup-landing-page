@@ -1,0 +1,38 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#dcd6e7",
+    "activityBar.background": "#dcd6e7",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#ad8772",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#dcd6e7",
+    "statusBar.background": "#c1b5d5",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#a694c3",
+    "statusBarItem.remoteBackground": "#c1b5d5",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#c1b5d5",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#c1b5d599",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#c1b5d5",
+  "chat.tools.terminal.autoApprove": {
+    "npm install": true,
+    "ForEach-Object": true,
+    "/^cd \"c:\\\\Users\\\\abbas\\\\Desktop\\\\IHSTGroup\"; python - <<'PY'\nfrom pathlib import Path\ntext = Path\\('app/page\\.tsx'\\)\\.read_text\\(\\)\\.splitlines\\(\\)\nfor i, line in enumerate\\(text\\[:370\\], start=1\\):\n    pass\n# count braces from function start\nstart = next\\(i for i,line in enumerate\\(text\\) if line\\.strip\\(\\)=='export default function Home\\(\\) \\{' \\)\nopens = \\{ '\\{':0, '\\(':0, '\\[':0 \\}\ncloses = \\{ '\\}':0, '\\)':0, '\\]':0 \\}\nfor j,line in enumerate\\(text\\[start:\\], start=start\\+1\\):\n    for ch in line:\n        if ch in opens: opens\\[ch\\] \\+=1\n        if ch in closes: closes\\[ch\\] \\+=1\n    # compute depth\n    depth = opens\\['\\{'\\] - closes\\['\\}'\\]\n    if j >= 340 and j <= 360:\n        print\\(f'\\{j\\}: depth=\\{depth\\} line=\\{line\\}'\\)\nprint\\('final depths', \\{k:opens\\[k\\]-closes\\[k\\] for k in opens\\}\\)\nPY$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^cd \"c:\\\\Users\\\\abbas\\\\Desktop\\\\IHSTGroup\"; node -e 'const fs=require\\(\"fs\"\\); const text=fs\\.readFileSync\\(\"app/page\\.tsx\",\"utf8\"\\)\\.split\\(\"\\\\n\"\\); const start=text\\.findIndex\\(l=>l\\.trim\\(\\)===\"export default function Home\\(\\) \\{\"\\); let depth=\\{\"\\{\":0, \"\\}\":0, \"\\(\":0, \"\\)\":0, \"\\[\":0, \"\\]\":0\\}; for\\(let i=start;i<text\\.length;i\\+\\+\\)\\{ for\\(const ch of text\\[i\\]\\)\\{ if\\(ch in depth\\) depth\\[ch\\] \\+=1; \\} if\\(i>=340 && i<370\\)\\{ console\\.log\\(`\\$\\{i\\+1\\}: \\{\\$\\{depth\\[\"\\{\"\\]-depth\\[\"\\}\"\\]\\}\\} \\$\\{text\\[i\\]\\}`\\); \\} \\} console\\.log\\(depth\\);'\n$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^powershell -NoProfile -Command \"Get-Content app/page\\.tsx \\| Select-Object -Index 320\\.\\.380 \\| ForEach-Object \\{ Write-Host \\(\\(Get-Content app/page\\.tsx\\)\\.IndexOf\\(\\$_\\) \\+ 1\\) \\$_ \\}\"$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}
