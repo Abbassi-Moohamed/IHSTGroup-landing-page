@@ -43,10 +43,10 @@ export const CylinderCard = memo(function CylinderCard({
     >
       <div
         className={`
-          flex gap-2 rounded-2xl border shadow-lg transition-all duration-700
+          flex gap-2 rounded-2xl border backdrop-blur-xl transition-all duration-700
           ${isActive
-            ? "border-burgundy/60 bg-white/10 shadow-[0_0_50px_rgba(139,39,32,0.12)]"
-            : "border-white/10 bg-white/[0.04]"
+            ? "border-burgundy/60 bg-slate-950/85"
+            : "border-white/10 bg-slate-950/80"
           }
         `}
         style={{
@@ -54,6 +54,7 @@ export const CylinderCard = memo(function CylinderCard({
           height: cardHeight,
           padding: cardWidth < 350 ? "0.625rem" : "1rem",
           gap: cardWidth < 350 ? "0.5rem" : "0.75rem",
+          boxShadow: isActive ? "var(--card-shadow-active)" : "var(--card-shadow)",
         }}
       >
         <div className="flex min-w-0 flex-1 flex-col justify-center gap-1">

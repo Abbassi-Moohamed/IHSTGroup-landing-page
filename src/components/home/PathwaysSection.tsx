@@ -22,7 +22,7 @@ export function PathwaysSection() {
       className="relative px-4 sm:px-10 lg:px-14"
       style={{ height: sectionHeight }}
     >
-      <div className="sticky top-0 h-dvh overflow-hidden bg-gradient-to-b from-slate-950 via-[#0c1a30] to-slate-950">
+      <div className="sticky top-0 h-dvh overflow-hidden bg-gradient-section">
         <div className="mx-auto flex h-full max-w-7xl">
           <div className="hidden w-72 shrink-0 md:flex md:flex-col">
             <PathwaysNavigation
@@ -35,6 +35,27 @@ export function PathwaysSection() {
           </div>
 
           <div className="relative flex min-w-0 flex-1 items-center justify-center">
+            <div className="pointer-events-none absolute left-1/2 z-10 -translate-x-1/2" style={{ top: "7rem" }}>
+              <div className="pointer-events-auto rounded-2xl bg-slate-950/80 px-8 pt-4 text-center pb-6 backdrop-blur-2xl">
+                <p className="text-2xl font-bold uppercase tracking-[0.3em] text-rosewood/90 sm:text-3xl">
+                  Our pathways
+                </p>
+                <h2 className="mt-2 text-lg text-white sm:text-xl">
+                  {SECTIONS[activeCard]?.title}
+                </h2>
+                <p className="mt-1 text-sm text-slate-500">
+                  {String(activeCard + 1).padStart(2, "0")} /{" "}
+                  {String(SECTIONS.length).padStart(2, "0")}
+                </p>
+                <div className="mx-auto mt-3 h-1 w-56 overflow-hidden rounded-full bg-white/5">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-rosewood to-rosewood/60 transition-all duration-500 ease-out"
+                    style={{ width: `${((activeCard + 1) / SECTIONS.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+
             <CylinderScene
               cylinderRotation={cylinderRotation}
               activeCard={activeCard}

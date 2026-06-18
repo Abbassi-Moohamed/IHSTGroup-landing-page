@@ -22,17 +22,17 @@ export function CylinderScene({
   const effectiveRotation = useMotionValue(0);
   const isAnimating = useRef(false);
 
-  const [dimensions, setDimensions] = useState({ cardWidth: 460, radius: 280, cardHeight: 190 });
+  const [dimensions, setDimensions] = useState({ cardWidth: 520, radius: 300, cardHeight: 220 });
 
   useEffect(() => {
     const updateDimensions = () => {
       const w = window.innerWidth;
       if (w < 640) {
-        setDimensions({ cardWidth: 270, radius: 180, cardHeight: 150 });
+        setDimensions({ cardWidth: 300, radius: 195, cardHeight: 165 });
       } else if (w < 1024) {
-        setDimensions({ cardWidth: 360, radius: 230, cardHeight: 170 });
+        setDimensions({ cardWidth: 410, radius: 255, cardHeight: 195 });
       } else {
-        setDimensions({ cardWidth: 460, radius: 280, cardHeight: 190 });
+        setDimensions({ cardWidth: 520, radius: 300, cardHeight: 220 });
       }
     };
     updateDimensions();

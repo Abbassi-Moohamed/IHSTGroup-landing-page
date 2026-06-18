@@ -19,7 +19,7 @@ const inputClassName =
 export function ContactSection() {
   return (
     <section
-      className="bg-gradient-to-b from-slate-950 via-navy to-slate-950 px-4 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20"
+      className="bg-gradient-section px-4 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20"
       id="contact"
     >
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_2fr] lg:gap-14">

@@ -17,6 +17,7 @@ export function useTheme(defaultTheme: ThemeMode = "dark") {
   }, []);
 
   useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
     document.body.setAttribute("data-theme", theme);
     window.localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
