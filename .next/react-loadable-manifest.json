@@ -7,10 +7,8 @@
     "id": "node_modules\\@react-three\\drei\\web\\FaceLandmarker.js -> @mediapipe/tasks-vision",
     "files": []
   },
-  "src\\components\\home\\ContactSection.tsx -> ./contact/mailModel": {
-    "id": "src\\components\\home\\ContactSection.tsx -> ./contact/mailModel",
-    "files": [
-      "static/chunks/_app-pages-browser_src_components_home_contact_mailModel_tsx.js"
-    ]
+  "src\\components\\sections\\contact\\ContactSection.tsx -> ./EmailModel": {
+    "id": "src\\components\\sections\\contact\\ContactSection.tsx -> ./EmailModel",
+    "files": []
   }
 }

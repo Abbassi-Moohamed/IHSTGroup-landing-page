@@ -563,6 +563,9 @@ video {
 .left-0 {
   left: 0px;
 }
+.left-1\/2 {
+  left: 50%;
+}
 .left-3 {
   left: 0.75rem;
 }
@@ -601,9 +604,6 @@ video {
 }
 .top-8 {
   top: 2rem;
-}
-.left-1\/2 {
-  left: 50%;
 }
 .-z-10 {
   z-index: -10;
@@ -841,6 +841,9 @@ video {
 .gap-1 {
   gap: 0.25rem;
 }
+.gap-12 {
+  gap: 3rem;
+}
 .gap-2 {
   gap: 0.5rem;
 }
@@ -858,18 +861,6 @@ video {
 }
 .gap-8 {
   gap: 2rem;
-}
-.gap-10 {
-  gap: 2.5rem;
-}
-.gap-\[1\.875rem\] {
-  gap: 1.875rem;
-}
-.gap-14 {
-  gap: 3.5rem;
-}
-.gap-12 {
-  gap: 3rem;
 }
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
