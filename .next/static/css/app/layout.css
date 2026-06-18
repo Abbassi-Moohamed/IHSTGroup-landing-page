@@ -596,6 +596,12 @@ video {
 .top-8 {
   top: 2rem;
 }
+.bottom-\[7rem\] {
+  bottom: 7rem;
+}
+.bottom-\[5\.25rem\] {
+  bottom: 5.25rem;
+}
 .-z-10 {
   z-index: -10;
 }
@@ -1822,6 +1828,14 @@ section[data-id]:not([data-id="hero"]).active {
     top: 1.25rem;
   }
 
+  .sm\:bottom-\[8\.5rem\] {
+    bottom: 8.5rem;
+  }
+
+  .sm\:bottom-\[6\.25rem\] {
+    bottom: 6.25rem;
+  }
+
   .sm\:-mt-\[70vh\] {
     margin-top: -70vh;
   }
@@ -2148,6 +2162,14 @@ section[data-id]:not([data-id="hero"]).active {
 
   .lg\:top-8 {
     top: 2rem;
+  }
+
+  .lg\:bottom-\[11rem\] {
+    bottom: 11rem;
+  }
+
+  .lg\:bottom-\[7\.5rem\] {
+    bottom: 7.5rem;
   }
 
   .lg\:-mt-\[90vh\] {

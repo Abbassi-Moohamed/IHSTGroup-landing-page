@@ -56,7 +56,7 @@ const hubStatCards: HubStatCardConfig[] = [
     stat: HERO_CARD_STATS[0].stat,
     label: HERO_CARD_STATS[0].label,
     baseRotate: -1,
-    positionClass: "left-[2rem] bottom-[3.5rem] w-28 sm:left-[3.5rem] sm:bottom-[4.5rem] sm:w-32 lg:left-[4.5rem] lg:bottom-[5.75rem] lg:w-36",
+    positionClass: "left-[2rem] bottom-[5.25rem] w-28 sm:left-[3.5rem] sm:bottom-[6.25rem] sm:w-32 lg:left-[4.5rem] lg:bottom-[7.5rem] lg:w-36",
     idleOffset: {
       x: [0, 5, -5, 0],
       y: [0, -4, 4, 0],
@@ -68,7 +68,7 @@ const hubStatCards: HubStatCardConfig[] = [
     stat: HERO_CARD_STATS[1].stat,
     label: HERO_CARD_STATS[1].label,
     baseRotate: 1,
-    positionClass: "left-[7.5rem] bottom-[3.5rem] w-28 sm:left-[11rem] sm:bottom-[4.5rem] sm:w-32 lg:left-[14.25rem] lg:bottom-[5.75rem] lg:w-36",
+    positionClass: "left-[7.5rem] bottom-[7rem] w-28 sm:left-[11rem] sm:bottom-[8.5rem] sm:w-32 lg:left-[14.25rem] lg:bottom-[11rem] lg:w-36",
     idleOffset: {
       x: [0, -5, 5, 0],
       y: [0, 4, -4, 0],
@@ -222,7 +222,7 @@ export function HeroSection() {
     return (
       <motion.div
         key={card.id}
-        className={`hero-float-card ${card.positionClass} absolute z-20 cursor-grab rounded-3xl border border-white/10 bg-slate-950/80 px-4 py-3 shadow-soft backdrop-blur-xl`}
+        className={`hero-float-card ${card.positionClass} absolute z-20 cursor-grab rounded-3xl border border-white/10 bg-slate-950/85 px-4 py-3 shadow-soft backdrop-blur-xl`}
         drag={isActive}
         dragElastic={0.12}
         dragMomentum={false}
@@ -267,7 +267,7 @@ export function HeroSection() {
         whileTap={{ cursor: "grabbing", scale: 0.98 }}
       >
         <p className="text-lg font-semibold text-white">{card.stat}</p>
-        <p className="mt-1 text-xs uppercase tracking-[0.25em] text-slate-400">
+        <p className="mt-1 text-xs uppercase tracking-[0.25em] text-rosewood">
           {card.label}
         </p>
       </motion.div>
@@ -340,7 +340,7 @@ export function HeroSection() {
                   <p className="text-xl font-semibold text-white sm:text-2xl">
                     {item.value}
                   </p>
-                  <p className="mt-1 text-xs text-slate-300 sm:mt-2 sm:text-sm">{item.label}</p>
+                  <p className="mt-1 text-xs text-white sm:mt-2 sm:text-sm">{item.label}</p>
                 </Card>
               ))}
             </motion.div>

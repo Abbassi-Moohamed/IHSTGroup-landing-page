@@ -22,7 +22,7 @@ const buttonSizes: Record<ButtonSize, string> = {
 const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-burgundy text-white hover:bg-[#9b2d26]",
   secondary:
-    "border border-white/15 bg-white/5 text-slate-100 transition hover:border-burgundy hover:text-white",
+    "border border-white/15 bg-white/5 text-white transition hover:border-burgundy hover:text-white",
 };
 
 export function Button({
