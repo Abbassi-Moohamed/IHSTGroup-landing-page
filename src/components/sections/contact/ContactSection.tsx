@@ -18,7 +18,7 @@ const inputClassName =
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-12 sm:py-16 lg:py-20">
+    <section id="contact" className="bg-transparent py-12 sm:py-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-10 lg:grid-cols-[1fr_2fr] lg:gap-14 lg:px-14">
         <div className="flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-white/10 p-6 shadow-soft backdrop-blur-lg sm:p-8 lg:p-10">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-4">
