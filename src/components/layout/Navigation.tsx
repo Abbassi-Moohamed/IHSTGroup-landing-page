@@ -24,7 +24,7 @@ export function Navigation({
   }
 
   return (
-    <nav className="hidden items-center gap-6 text-sm sm:flex">
+    <nav aria-label="Main navigation" className="hidden items-center gap-6 text-sm sm:flex">
       {NAV_ITEMS.map((item) => (
         <a
           key={item.target}

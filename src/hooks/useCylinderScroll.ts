@@ -24,9 +24,9 @@ export function useCylinderScroll(totalCards: number) {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 25,
-    restDelta: 0.001,
+    stiffness: 70,
+    damping: 30,
+    restDelta: 0.002,
   });
 
   const sectionHeight = `${totalCards * 100}vh`;
@@ -38,7 +38,7 @@ export function useCylinderScroll(totalCards: number) {
     [0, totalCards - 1, totalCards - 1],
   );
 
-  const CARD_SPACING = 50; // degrees between each card (< 60 = cards past ±90° are hidden by backface)
+  const CARD_SPACING = 50;
 
   const cylinderRotation = useTransform(
     smoothProgress,

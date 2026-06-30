@@ -43,7 +43,6 @@
     sans-serif;
   background-color: #050816;
   text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
 }
 
 html {
@@ -62,6 +61,7 @@ html {
   -webkit-background-clip: text;
   color: transparent;
   animation: ihs-slide-fade 1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+  perspective: 1600px;
 }
 
 .hero-headline::after {
@@ -94,10 +94,6 @@ html {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.hero-section {
-  perspective: 1600px;
 }
 
 .hero-scene {
@@ -144,18 +140,6 @@ html {
   opacity: 0.85;
   filter: blur(24px);
   transition: background-position 0.2s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-headline,
-  .hero-copy,
-  .hero-scene,
-  .hero-card,
-  .hero-float-card,
-  .hero-ghost-light {
-    animation: none !important;
-    transition: none !important;
-  }
 }
 
 @keyframes ihs-glow-pulse {

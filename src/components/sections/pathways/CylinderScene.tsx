@@ -2,10 +2,9 @@
 
 import { useMemo, useEffect, useRef, useState } from "react";
 import { motion, animate, useMotionValue, type MotionValue } from "framer-motion";
-import { SECTIONS } from "@/constants/content";
 import type { Section } from "@/types";
 import { CylinderCard } from "./CylinderCard";
-import { TitleCard } from "./TitleCard";
+import { TitleSidebar } from "./TitleSidebar";
 import { BottomNavBar } from "./BottomNavBar";
 
 interface CylinderSceneProps {
@@ -18,7 +17,6 @@ interface CylinderSceneProps {
   onClick: (index: number) => void;
 }
 
-const TOTAL = SECTIONS.length;
 const CARD_SPACING = 50;
 
 export function CylinderScene({
@@ -33,17 +31,22 @@ export function CylinderScene({
   const effectiveRotation = useMotionValue(0);
   const isAnimating = useRef(false);
 
-  const [dimensions, setDimensions] = useState({ cardWidth: 520, radius: 300, cardHeight: 220 });
+  const [dimensions, setDimensions] = useState({
+    cardWidth: 520,
+    radius: 300,
+    cardHeight: 220,
+    perspective: 1200,
+  });
 
   useEffect(() => {
     const updateDimensions = () => {
       const w = window.innerWidth;
       if (w < 640) {
-        setDimensions({ cardWidth: 300, radius: 195, cardHeight: 165 });
+        setDimensions({ cardWidth: 280, radius: 180, cardHeight: 160, perspective: 800 });
       } else if (w < 1024) {
-        setDimensions({ cardWidth: 410, radius: 255, cardHeight: 195 });
+        setDimensions({ cardWidth: 380, radius: 240, cardHeight: 190, perspective: 1000 });
       } else {
-        setDimensions({ cardWidth: 520, radius: 300, cardHeight: 220 });
+        setDimensions({ cardWidth: 520, radius: 300, cardHeight: 220, perspective: 1200 });
       }
     };
     updateDimensions();
@@ -61,83 +64,109 @@ export function CylinderScene({
   }, [cylinderRotation, effectiveRotation]);
 
   useEffect(() => {
-    if (hoveredCard === null) return;
-
-    isAnimating.current = true;
-    const target = hoveredCard * CARD_SPACING;
-    const controls = animate(effectiveRotation, target, {
-      type: "spring",
-      stiffness: 80,
-      damping: 25,
-    });
-
-    return () => {
-      controls.stop();
-      isAnimating.current = false;
-      const scrollAngle = cylinderRotation.get();
-      animate(effectiveRotation, scrollAngle, {
+    if (hoveredCard !== null) {
+      isAnimating.current = true;
+      const target = hoveredCard * CARD_SPACING;
+      const controls = animate(effectiveRotation, target, {
         type: "spring",
         stiffness: 100,
-        damping: 30,
+        damping: 28,
       });
-    };
+
+      const timeout = setTimeout(() => {
+        isAnimating.current = false;
+        const scrollAngle = cylinderRotation.get();
+        animate(effectiveRotation, scrollAngle, {
+          type: "spring",
+          stiffness: 120,
+          damping: 35,
+          restDelta: 0.5,
+        });
+      }, 1200);
+
+      return () => {
+        controls.stop();
+        clearTimeout(timeout);
+        isAnimating.current = false;
+        const scrollAngle = cylinderRotation.get();
+        animate(effectiveRotation, scrollAngle, {
+          type: "spring",
+          stiffness: 120,
+          damping: 35,
+          restDelta: 0.5,
+        });
+      };
+    } else {
+      isAnimating.current = false;
+    }
   }, [hoveredCard, cylinderRotation, effectiveRotation]);
+
+  const ambientOpacity = hoveredCard !== null ? 0.6 : 0.3;
 
   const cards = useMemo(
     () =>
-      SECTIONS.map((section, index) => (
+      sections.map((section, index) => (
         <CylinderCard
           key={section.id}
           section={section}
           index={index}
-          total={TOTAL}
+          total={totalCards}
           radius={dimensions.radius}
           cardWidth={dimensions.cardWidth}
           cardHeight={dimensions.cardHeight}
           isActive={activeCard === index}
+          onHover={onHover}
         />
       )),
-    [activeCard, dimensions],
+    [activeCard, dimensions, sections, totalCards, onHover],
   );
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
-      {/* Title Card overlay — top */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-center pt-24 sm:pt-28">
-        <div className="pointer-events-auto">
-          <TitleCard
-            activeCard={activeCard}
-            totalCards={totalCards}
-            section={sections[activeCard]}
-          />
-        </div>
+    <div className="flex h-full w-full">
+      {/* Left Sidebar */}
+      <div className="hidden w-[34%] shrink-0 md:block">
+        <TitleSidebar
+          activeCard={activeCard}
+          totalCards={totalCards}
+          hoveredCard={hoveredCard}
+          sections={sections}
+        />
       </div>
 
-      {/* Carousel */}
-      <div
-        className="relative flex items-center justify-center"
-        style={{
-          perspective: "1200px",
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        <motion.div
-          className="relative"
-          style={{
-            transformStyle: "preserve-3d",
-            rotateX: effectiveRotation,
-            width: 0,
-            height: 0,
-          }}
+      {/* Right area */}
+      <div className="relative flex w-full flex-col md:w-[66%]">
+        {/* Carousel */}
+        <div
+          className="relative flex flex-1 items-center justify-center overflow-hidden"
+          style={{ perspective: `${dimensions.perspective}px` }}
         >
-          {cards}
-        </motion.div>
-      </div>
+          {/* Ambient glow behind active card */}
+          <motion.div
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+            style={{
+              width: dimensions.cardWidth * 1.4,
+              height: dimensions.cardHeight * 1.4,
+              background: `radial-gradient(circle, rgba(180,71,63,${ambientOpacity * 0.15}) 0%, rgba(139,39,32,${ambientOpacity * 0.05}) 40%, transparent 70%)`,
+            }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          />
 
-      {/* Bottom Nav Bar overlay — bottom, scrolls away with the section */}
-      <div className={`pointer-events-none absolute inset-x-0 z-40 flex justify-center border-t border-white/10 bg-slate-950/60 backdrop-blur-sm transition-all duration-700 ${activeCard === totalCards - 1 ? "bottom-36" : "bottom-12"}`}>
-        <div className="pointer-events-auto">
+          <motion.div
+            className="relative"
+            style={{
+              transformStyle: "preserve-3d",
+              rotateX: effectiveRotation,
+              width: 0,
+              height: 0,
+            }}
+          >
+            {cards}
+          </motion.div>
+        </div>
+
+        {/* Bottom Nav */}
+        <div className="border-t border-white/[0.04] bg-slate-950/40 backdrop-blur-lg">
           <BottomNavBar
             sections={sections}
             activeCard={activeCard}

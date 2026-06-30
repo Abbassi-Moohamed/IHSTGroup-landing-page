@@ -9,7 +9,7 @@ import {
 
 export function ClubsSection() {
   return (
-    <section data-id="clubs" className="-mt-[50vh] bg-gradient-section py-12 sm:-mt-[70vh] sm:py-16 lg:-mt-[90vh]">
+    <section data-id="clubs" aria-label="Clubs" className="-mt-[50vh] bg-gradient-section py-12 sm:-mt-[70vh] sm:py-16 lg:-mt-[90vh]">
       <div className="mx-auto max-w-7xl px-4 sm:px-10 lg:px-14">
         <div className="grid gap-8 lg:grid-cols-[1fr_0.75fr] lg:gap-10 lg:items-end">
           <div className="space-y-3 sm:space-y-4">

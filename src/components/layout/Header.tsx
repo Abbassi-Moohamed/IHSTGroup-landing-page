@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui";
-import { Navigation } from "@/components/layout/Navigation";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { Navigation, ThemeToggle } from "@/components/layout";
 import { BRANDING, CTA_TEXT } from "@/constants/content";
 import type { HeaderProps } from "@/types";
 

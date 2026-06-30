@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type { ReactNode, MouseEventHandler } from "react";
 
 type ButtonVariant = "primary" | "secondary";
@@ -34,14 +35,12 @@ export function Button({
   type = "button",
   onClick,
 }: ButtonProps) {
-  const classes = [
+  const classes = cn(
     "inline-flex items-center justify-center rounded-full font-semibold shadow-glow transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2",
     buttonSizes[size],
     variantStyles[variant],
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   if (href) {
     return (

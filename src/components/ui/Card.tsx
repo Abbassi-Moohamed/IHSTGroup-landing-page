@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type { CardProps } from "@/types";
 
 const cardVariants = {
@@ -8,9 +9,9 @@ const cardVariants = {
     "overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-soft transition duration-500 hover:-translate-y-2 hover:border-burgundy/30",
 };
 
-export function Card({ variant, className = "", children }: CardProps) {
+export function Card({ variant, className, children }: CardProps) {
   return (
-    <div className={`${cardVariants[variant]} ${className}`.trim()}>
+    <div className={cn(cardVariants[variant], className)}>
       {children}
     </div>
   );

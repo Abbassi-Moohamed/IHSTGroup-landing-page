@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type MouseEvent as ReactMouseEvent,
-} from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { motion } from "framer-motion";
 import { Badge, Button, Card } from "@/components/ui";
 import {
   CTA_TEXT,
@@ -21,15 +16,14 @@ import {
   HERO_TAGLINE,
   HERO_TITLE,
 } from "@/constants/content";
-import type { CardPosition, FloatCard, FloatCardId } from "@/types";
+import type { CardPosition } from "@/types";
 import { AnimatedText } from "../shared/AnimatedText";
+import { FloatCard } from "./FloatCard";
+import { HubStatCard } from "./HubStatCard";
 
-type FloatCardKey = FloatCardId["id"];
-type HubStatCardKey = "fasterResults" | "supportAccess";
-type HeroDraggableCardKey = FloatCardKey | "hub" | HubStatCardKey;
-
+type HeroDraggableCardKey = string;
 type HubStatCardConfig = {
-  id: HubStatCardKey;
+  id: string;
   stat: string;
   label: string;
   baseRotate: number;
@@ -41,7 +35,7 @@ type HubStatCardConfig = {
   };
 };
 
-const initialCardPositions: Record<HeroDraggableCardKey, CardPosition> = {
+const initialCardPositions: Record<string, CardPosition> = {
   one: { x: 0, y: 0 },
   two: { x: 0, y: 0 },
   three: { x: 0, y: 0 },
@@ -78,14 +72,24 @@ const hubStatCards: HubStatCardConfig[] = [
 ];
 
 export function HeroSection() {
-  const [activeCard, setActiveCard] = useState<HeroDraggableCardKey | null>(
-    null,
-  );
-  const [cardPositions, setCardPositions] =
-    useState<Record<HeroDraggableCardKey, CardPosition>>(initialCardPositions);
+  const [activeCard, setActiveCard] = useState<HeroDraggableCardKey | null>(null);
+  const [cardPositions, setCardPositions] = useState<Record<string, CardPosition>>(initialCardPositions);
   const [isResetting, setIsResetting] = useState(false);
   const heroRef = useRef<HTMLDivElement | null>(null);
-  const prefersReducedMotion = useReducedMotion();
+
+  const handleActivate = useCallback((id: string | null) => {
+    setActiveCard(id);
+  }, []);
+
+  const handleDragEnd = useCallback((id: string, offset: { x: number; y: number }) => {
+    setCardPositions((current) => ({
+      ...current,
+      [id]: {
+        x: current[id].x + offset.x,
+        y: current[id].y + offset.y,
+      },
+    }));
+  }, []);
 
   const resetCardPositions = (event?: ReactMouseEvent) => {
     const target = event?.target as Element | null;
@@ -101,14 +105,8 @@ export function HeroSection() {
   };
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
     const hero = heroRef.current;
-    if (!hero) {
-      return;
-    }
+    if (!hero) return;
 
     let frame = 0;
     const updateHero = (x: number, y: number) => {
@@ -154,130 +152,13 @@ export function HeroSection() {
         cancelAnimationFrame(frame);
       }
     };
-  }, [prefersReducedMotion]);
-
-  const renderFloatCard = (card: FloatCard) => {
-    const position = cardPositions[card.id];
-    const isActive = activeCard === card.id;
-
-    return (
-      <motion.div
-        key={card.id}
-        className={`hero-float-card ${card.positionClass} absolute z-10 cursor-grab rounded-[1.8rem] border border-white/10 bg-white/10 p-4 shadow-soft backdrop-blur-xl`}
-        drag={isActive}
-        dragElastic={0.12}
-        dragMomentum={false}
-        onHoverStart={() => setActiveCard(card.id)}
-        onHoverEnd={() => setActiveCard(null)}
-        onDragStart={() => setActiveCard(card.id)}
-        onDragEnd={(_, info) =>
-          setCardPositions((current) => ({
-            ...current,
-            [card.id]: {
-              x: current[card.id].x + info.offset.x,
-              y: current[card.id].y + info.offset.y,
-            },
-          }))
-        }
-        style={{ x: position.x, y: position.y }}
-        animate={
-          isActive
-            ? { x: position.x, y: position.y, rotateZ: card.baseRotate }
-            : isResetting
-              ? { x: 0, y: 0, rotateZ: card.baseRotate }
-              : {
-                  x: card.idleOffset.x.map((value) => position.x + value),
-                  y: card.idleOffset.y.map((value) => position.y + value),
-                  rotateZ: card.idleOffset.rotateZ,
-                }
-        }
-        transition={
-          isActive
-            ? { duration: 0.22, ease: "easeOut" }
-            : isResetting
-              ? { duration: 0.18, ease: "easeOut" }
-              : prefersReducedMotion
-                ? { duration: 0.25, ease: "easeOut" }
-                : {
-                    duration: 3,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                  }
-        }
-        whileTap={{ cursor: "grabbing", scale: 0.98 }}
-      >
-        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-rosewood">
-          {card.tag}
-        </p>
-        <p className="mt-3 text-sm font-semibold text-white">{card.title}</p>
-      </motion.div>
-    );
-  };
-
-  const renderHubStatCard = (card: HubStatCardConfig) => {
-    const position = cardPositions[card.id];
-    const isActive = activeCard === card.id;
-
-    return (
-      <motion.div
-        key={card.id}
-        className={`hero-float-card ${card.positionClass} absolute z-20 cursor-grab rounded-3xl border border-white/10 bg-slate-950/85 px-4 py-3 shadow-soft backdrop-blur-xl`}
-        drag={isActive}
-        dragElastic={0.12}
-        dragMomentum={false}
-        onHoverStart={() => setActiveCard(card.id)}
-        onHoverEnd={() => setActiveCard(null)}
-        onDragStart={() => setActiveCard(card.id)}
-        onDragEnd={(_, info) =>
-          setCardPositions((current) => ({
-            ...current,
-            [card.id]: {
-              x: current[card.id].x + info.offset.x,
-              y: current[card.id].y + info.offset.y,
-            },
-          }))
-        }
-        style={{ x: position.x, y: position.y }}
-        animate={
-          isActive
-            ? { x: position.x, y: position.y, rotateZ: card.baseRotate }
-            : isResetting
-              ? { x: 0, y: 0, rotateZ: card.baseRotate }
-              : {
-                  x: card.idleOffset.x.map((value) => position.x + value),
-                  y: card.idleOffset.y.map((value) => position.y + value),
-                  rotateZ: card.idleOffset.rotateZ,
-                }
-        }
-        transition={
-          isActive
-            ? { duration: 0.22, ease: "easeOut" }
-            : isResetting
-              ? { duration: 0.18, ease: "easeOut" }
-              : prefersReducedMotion
-                ? { duration: 0.25, ease: "easeOut" }
-                : {
-                    duration: 3,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                  }
-        }
-        whileTap={{ cursor: "grabbing", scale: 0.98 }}
-      >
-        <p className="text-lg font-semibold text-white">{card.stat}</p>
-        <p className="mt-1 text-xs uppercase tracking-[0.25em] text-rosewood">
-          {card.label}
-        </p>
-      </motion.div>
-    );
-  };
+  }, []);
 
   return (
     <section
       id="hero"
       data-id="hero"
+      aria-label="Hero"
       className="hero-section relative overflow-hidden px-4 pb-20 pt-8 sm:px-10 sm:pb-24 sm:pt-10 lg:px-14"
     >
       <div className="absolute inset-0 -z-10 bg-page" />
@@ -405,14 +286,12 @@ export function HeroSection() {
                   ? { duration: 0.18, ease: "easeOut" }
                   : activeCard === "hub"
                     ? { duration: 0.22, ease: "easeOut" }
-                    : prefersReducedMotion
-                      ? { duration: 0.25, ease: "easeOut" }
-                      : {
-                          duration: 3,
-                          ease: "easeInOut",
-                          repeat: Infinity,
-                          repeatType: "mirror",
-                        }
+                    : {
+                        duration: 3,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                      }
               }
             >
               <div className="absolute -left-5 top-5 h-24 w-24 rounded-full bg-gradient-to-br from-rosewood/20 to-transparent blur-3xl" />
@@ -429,8 +308,28 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            {hubStatCards.map(renderHubStatCard)}
-            {HERO_FLOAT_CARDS.map(renderFloatCard)}
+            {hubStatCards.map((card) => (
+              <HubStatCard
+                key={card.id}
+                card={card}
+                position={cardPositions[card.id]}
+                isActive={activeCard === card.id}
+                isResetting={isResetting}
+                onActivate={handleActivate}
+                onDragEnd={handleDragEnd}
+              />
+            ))}
+            {HERO_FLOAT_CARDS.map((card) => (
+              <FloatCard
+                key={card.id}
+                card={card}
+                position={cardPositions[card.id]}
+                isActive={activeCard === card.id}
+                isResetting={isResetting}
+                onActivate={handleActivate}
+                onDragEnd={handleDragEnd}
+              />
+            ))}
           </motion.div>
         </div>
       </div>

@@ -2,8 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Footer, Header } from "@/components/layout";
-import { useSectionObserver } from "@/hooks/useSectionObserver";
-import { useTheme } from "@/hooks/useTheme";
+import { useSectionObserver, useTheme } from "@/hooks";
 import { ClubsSection } from "./pathways/ClubsSection";
 import { ContactSection } from "./contact/ContactSection";
 import { HeroSection } from "./hero/HeroSection";

@@ -4,9 +4,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Cambridge", target: "cambridge" },
   { label: "Clubs", target: "clubs" },
   { label: "Career", target: "career" },
-  { label: "IB", target: "ib" },
-  { label: "Language", target: "languages" },
-  { label: "Systems", target: "systems" },
+  { label: "AI Labs", target: "ai-labs" },
   { label: "Contact", target: "contact" },
 ];
 
@@ -91,7 +89,8 @@ export const HERO_IDLE_OFFSET = {
 export const SECTIONS: Section[] = [
   {
     id: "cambridge",
-    title: "Cambridge Tutoring Excellence",
+    tag: "Cambridge",
+    title: "Cambridge Education System",
     description:
       "Precision-focused coaching for Cambridge pathways, combining expert curriculum mastery with premium learning rituals and bespoke progress tracking.",
     highlights: [
@@ -102,7 +101,8 @@ export const SECTIONS: Section[] = [
   },
   {
     id: "clubs",
-    title: "Clubs & Innovation Labs",
+    tag: "Clubs",
+    title: "IHS Clubs",
     description:
       "Curated clubs for bold young minds: Chess, STEM Robotics, and the AI Club Lab—each designed to ignite curiosity, strategy, and future-ready capabilities.",
     highlights: [
@@ -113,42 +113,26 @@ export const SECTIONS: Section[] = [
   },
   {
     id: "career",
+    tag: "Career",
     title: "IHS Career Institute",
     description:
       "A refined pathway into professional success with career coaching, portfolio mentoring, and applied skills for the next generation of global achievers.",
     highlights: [
-      "Career mapping",
+      "Career mapping & mentorship",
       "Industry-ready soft skills",
       "Executive presentation coaching",
     ],
   },
   {
-    id: "ib",
-    title: "IB Education Subsection",
+    id: "ai-labs",
+    tag: "AI Labs",
+    title: "IHS AI Labs",
     description:
-      "A premium IB experience that balances academic rigor with wellbeing, ensuring every learner excels through structured planning and mentor-led guidance.",
-    highlights: ["IA support", "TOK mastery", "Extended essay insights"],
-  },
-  {
-    id: "languages",
-    title: "Multilingual Language Studio",
-    description:
-      "Language journeys in English, Tamil, French, and Chinese—designed for confidence, fluency, and the cultural nuance essential in a global world.",
+      "Explore the frontier of artificial intelligence with hands-on labs, real-world ML projects, and mentor-guided innovation in AI systems.",
     highlights: [
-      "Conversational fluency",
-      "Exam-focused coaching",
-      "Cultural immersion experiences",
-    ],
-  },
-  {
-    id: "systems",
-    title: "TN_FR_CND Systems",
-    description:
-      "A modern systems curriculum with structured learning in Tamil, French, and Chinese systems, blending deep concept clarity with creative expression.",
-    highlights: [
-      "System-specific guidance",
-      "Exam-ready preparation",
-      "Cross-lingual competence",
+      "Machine learning fundamentals",
+      "AI project development",
+      "Neural networks & deep learning",
     ],
   },
 ];

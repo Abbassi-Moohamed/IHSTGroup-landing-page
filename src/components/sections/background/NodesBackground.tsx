@@ -45,45 +45,48 @@ const THEME_CONFIG = {
   dark: {
     fog: "#050816",
     nodeColor: "#ffffff",
-    connOpacity: 0.04,
+    connOpacity: 0.025,
     travelerColor: "#ffffff",
-    travelerOpacity: 0.5,
+    travelerOpacity: 0.3,
     glowColor: "#ffffff",
-    nodeOpacityScale: 1,
+    nodeOpacityScale: 0.6,
   },
   light: {
     fog: "#cbd5e1",
-    nodeColor: "#475569",
-    connOpacity: 0.18,
-    travelerColor: "#64748b",
-    travelerOpacity: 0.65,
-    glowColor: "#475569",
-    nodeOpacityScale: 1.4,
+    nodeColor: "#334155",
+    connOpacity: 0.12,
+    travelerColor: "#475569",
+    travelerOpacity: 0.4,
+    glowColor: "#334155",
+    nodeOpacityScale: 1,
   },
 } as const;
 
 /* ─── Generators (deterministic — no Math.random) ─── */
 
-const NODE_COUNT = 36;
-const TRAVELER_COUNT = 14;
+const NODE_COUNT = 140;
+const TRAVELER_COUNT = 20;
 
 function buildNodes(): NodeData[] {
   const nodes: NodeData[] = [];
-  for (let i = 0; i < NODE_COUNT; i++) {
-    const t = i / (NODE_COUNT - 1);
-    const spread = (1 - t) * 5 + 22;
-    const angle = i * 2.3998;
-    const r = ((i * 7 + 3) % 100) / 100 * spread;
-    const x = Math.cos(angle) * r;
-    const y = 10 - t * 22;
-    const z = Math.sin(angle) * r * 0.5 + ((i * 13 + 5) % 100) / 100 * 0.8 - 0.4;
-    nodes.push({
-      pos: new THREE.Vector3(x, y, z),
-      radius: 0.12 - t * 0.02,
-      phase: (i * 2.1) % (Math.PI * 2),
-      speed: 0.4 + ((i * 3) % 5) * 0.25,
-      opacity: 0.6 - t * 0.1,
-    });
+  const cols = 5;
+  const rows = 14;
+  for (let side = 0; side < 2; side++) {
+    const sign = side === 0 ? -1 : 1;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = sign * (7 + c * 2.4 + ((r * 7 + c * 3) % 100) / 100 * 1.5);
+        const y = -9 + (r / (rows - 1)) * 18 + ((c * 11 + r * 5) % 100) / 100 * 1.2 - 0.6;
+        const z = ((r * 13 + c * 7 + side * 31) % 100) / 100 * 1.5 - 0.75;
+        nodes.push({
+          pos: new THREE.Vector3(x, y, z),
+          radius: 0.06 + ((r * 3 + c * 2) % 5) * 0.01,
+          phase: (r * 1.7 + c * 2.3 + side * 3.1) % (Math.PI * 2),
+          speed: 0.04 + ((r * 2 + c * 3) % 4) * 0.025,
+          opacity: 0.6 + ((r * 5 + c * 7) % 100) / 100 * 0.35,
+        });
+      }
+    }
   }
   return nodes;
 }
@@ -91,7 +94,7 @@ function buildNodes(): NodeData[] {
 function buildConns(nodes: NodeData[]): ConnData[] {
   const conns: ConnData[] = [];
   const counts = new Array(nodes.length).fill(0);
-  const threshold = 15;
+  const threshold = 7;
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
       if (counts[i] >= 4 || counts[j] >= 4) continue;
@@ -151,7 +154,7 @@ function Nodes({ nodes, themeKey }: { nodes: NodeData[]; themeKey: "dark" | "lig
     for (let i = 0; i < nodes.length; i++) {
       const m = refs.current[i];
       if (m) {
-        const pulse = 0.8 + 0.2 * Math.sin(t * nodes[i].speed + nodes[i].phase);
+        const pulse = 0.92 + 0.08 * Math.sin(t * nodes[i].speed + nodes[i].phase);
         m.scale.setScalar(pulse);
       }
     }
@@ -177,13 +180,13 @@ function Nodes({ nodes, themeKey }: { nodes: NodeData[]; themeKey: "dark" | "lig
         <sprite
           key={`g-${i}`}
           position={n.pos}
-          scale={[n.radius * 5, n.radius * 5, 1]}
+          scale={[n.radius * 8, n.radius * 8, 1]}
         >
           <spriteMaterial
             map={getGlowTexture()}
             color={cfg.glowColor}
             transparent
-            opacity={Math.min(n.opacity * cfg.nodeOpacityScale * 0.35, 1)}
+            opacity={Math.min(n.opacity * cfg.nodeOpacityScale * 0.5, 1)}
             depthWrite={false}
             blending={THREE.AdditiveBlending}
           />
@@ -353,7 +356,7 @@ export function NodesBackground({ containerRef, theme = "dark" }: NodesBackgroun
         }}
         dpr={[0.5, 1.5]}
       >
-        <fogExp2 attach="fog" args={[new THREE.Color(cfg.fog), 0.012]} />
+        <fogExp2 attach="fog" args={[new THREE.Color(cfg.fog), 0.009]} />
         <Scene targetRef={targetRef} themeKey={themeKey} />
       </Canvas>
     </motion.div>

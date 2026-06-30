@@ -1,5 +1,3 @@
-import type { DetailedHTMLProps, HTMLAttributes } from "react";
-
 export interface NavItem {
   label: string;
   target: string;
@@ -7,6 +5,7 @@ export interface NavItem {
 
 export interface Section {
   id: string;
+  tag?: string;
   title: string;
   description: string;
   highlights: string[];
@@ -33,13 +32,17 @@ export interface CardPosition {
   y: number;
 }
 
-export type CardProps = {
+export interface CardProps {
   variant: "stat" | "benefit" | "feature";
-} & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+  className?: string;
+  children?: React.ReactNode;
+}
 
-export type BadgeProps = {
+export interface BadgeProps {
   variant: "primary";
-} & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+  className?: string;
+  children?: React.ReactNode;
+}
 
 export type ThemeMode = "dark" | "light";
 
@@ -57,8 +60,3 @@ export interface NavigationProps {
   isMobile?: boolean;
   onNavigate: (section: string) => void;
 }
-
-export type FooterProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLElement>,
-  HTMLElement
->;
